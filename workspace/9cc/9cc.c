@@ -61,6 +61,8 @@ Node *mul();
 
 Node *term();
 
+Node *unary();
+
 void tokenize(char *p);
 
 void gen(Node *node);
@@ -124,12 +126,23 @@ Node *term() {
     return node;
   }
 
+  if (consume('+') || consume('-'))
+    return unary();
+
   // そうでなければ数値のはず
   if (tokens[pos].ty == TK_NUM)
     return new_node_num(tokens[pos++].val);
 
   error("数値でも開きカッコでもないトークンです: %s",
         tokens[pos].input);
+}
+
+Node *unary() {
+  if (consume('+'))
+    return term();
+  if (consume('-'))
+    return new_node('-', new_node_num(0), term());
+  return term();
 }
 
 // pが指している文字列をトークンに分割してtokensに保存する
