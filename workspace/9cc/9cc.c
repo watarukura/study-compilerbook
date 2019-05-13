@@ -45,6 +45,18 @@ typedef struct Node {
   int val;          // tyがND_NUMの場合のみ使う
 } Node;
 
+
+int main(int argc, char **argv);
+Node *new_node(int ty, Node *lhs, Node *rhs);
+Node *new_node_num(int val);
+int consume(int ty);
+Node *add();
+Node *mul();
+Node *term();
+void tokenize(char *p);
+void gen(Node *node);
+
+
 Node *new_node(int ty, Node *lhs, Node *rhs) {
   Node *node = malloc(sizeof(Node));
   node->ty = ty;
@@ -121,7 +133,7 @@ void tokenize(char *p) {
       continue;
     }
 
-    if (*p == '+' || *p == '-') {
+    if (*p == '+' || *p == '-' || *p == '*' || *p == '/') {
       tokens[i].ty = *p;
       tokens[i].input = p;
       i++;
