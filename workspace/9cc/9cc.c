@@ -46,14 +46,23 @@ typedef struct Node {
 } Node;
 
 
+// プロトタイプ宣言
 int main(int argc, char **argv);
+
 Node *new_node(int ty, Node *lhs, Node *rhs);
+
 Node *new_node_num(int val);
+
 int consume(int ty);
+
 Node *add();
+
 Node *mul();
+
 Node *term();
+
 void tokenize(char *p);
+
 void gen(Node *node);
 
 
